@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			.master-div {
+				box-sizing: border-box;
+				overflow: scroll;
+				width: 100%;
+			}
+			
+			.pacotes {
+				overflow: scroll;
+				width: 100%;
+			}
+			
+			.ret {
+				height: 40px;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				margin: 0 auto;
+				padding: 5px;
+				width: 100px;
+				
+				background:linear-gradient(to top, #fff 1%, #EFEFEF 35%, #E0E0E0 40%, #fff 90%);
+				border: 1px solid #C1C1C1;
+				border-radius: 4px;
+				
+				-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+				-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+				box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+			}
+			
+			.ret_1 {
+				margin-right: 60px;
+				display: inline-block;
+			}
+			
+			.ret_2 {
+				margin-top: 20px;
+			}
+			
+			.level {
+				text-align: center;
+				height: 30px;
+				padding: 20px;
+				margin-bottom: 30px;
+				width: 100%;
+			}
+			
+			.div-pacote {
+				background: #FFF;
+				display: block;
+				float: left;
+				padding-left: 3px;
+				position: relative;
+				margin-top: -30px;
+				width: 0;
+				z-index: -1;
+			}
+			
+			.appButton {
+				clear: both;
+				margin: 0 auto;
+			}
+			
+			.btnAdd {
+				background: #DDD;
+			}
+			
+			.input-eap {
+				background: transparent;
+				border: none;
+				font-family: Arial, sans-serif;
+				font-size: 12px;
+				overflow: hidden;
+				resize: none;
+				width: 98px;
+			}
+			
+			.label-eap {
+				background: transparent;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+				width: 98px;
+				height: 35px;
+			}
+			
+			.lineHr {
+				background: #CCC;
+				height: 3px;
+				margin: 0 auto;
+				margin-bottom: 2px;
+				width: 0;
+			}
+			
+			.lineTop {
+				background: #CCC;
+				height: 25px;
+				margin: 0 auto;
+				margin-top: -30px;
+				width: 3px;
+				z-index: -1;
+			}
+			
+			.lineBottom {
+				background: #FFF;
+				height: 25px;
+				margin: 0 auto;
+				margin-top: -5px;
+				width: 3px;
+				z-index: -1;
+			}
+		</style>
+		<script>
+			function getPos(ele, tipo) {
+				var x = 0;
+				var y = 0;
+				
+				while(true) {
+					x += ele.offsetLeft;
+					y += ele.offsetTop;
+					if (ele.offsetParent === null) {
+						break;
+					}
+					ele = ele.offsetParent;
+				}
+				if (tipo == 'x') {
+					return x;
+				}
+				else {
+					return y;
+				}
+			}
+			
+			function addPacote() {
+				count = document.getElementById('count_pacotes');
+				ret = document.createElement('div');
+				ret.className = 'ret ret_1';
+				ret.id = 'PP' + count.value;
+				
+				lineTop = document.createElement('div');
+				lineTop.className = 'lineTop';
+				
+				input = document.createElement('textarea');
+				input.className = 'input-eap';
+				input.name = 'pacote_' + count.value;
+				input.value = 'PACOTE ' + (Number(count.value) + 1);
+				
+				appbtn = document.createElement('div');
+				appbtn.className = 'appButton';
+				
+				btn1 = document.createElement('button');
+				btn1.className = 'btnAdd';
+				btn1.innerHTML = '+';
+				btn1.setAttribute('onclick', "addAtivi('" + 'PP' + count.value + "', " + count.value + "); ");
+				
+				btn2 = document.createElement('button');
+				btn2.className = 'btnAdd';
+				btn2.innerHTML = 'x';
+				btn2.setAttribute('onclick', "delPacote('" + 'PP' + count.value + "', " + count.value + "); ");
+				
+				appbtn.appendChild(btn1);
+				appbtn.appendChild(btn2);
+				
+				ret.appendChild(lineTop);
+				ret.appendChild(input);
+				ret.appendChild(appbtn);
+				
+				hr = document.getElementById('lineHr');
+				hr.style.width = (140 * count.value) * 1.5 + 'px';
+				
+				document.getElementById('pacotes').appendChild(ret);
+				count.value = Number(count.value) + 1;
+				
+				document.getElementById('lineBottom').style.background = '#CCC';
+			}
+			
+			function delPacote(id, count) {
+				del1 = document.getElementById(id);
+				del2 = document.getElementById('div-' + id);
+				parent1 = del1.parentNode;
+				parent2 = del2.parentNode;
+				
+				while (del2.firstChild){
+					del2.removeChild(del2.firstChild);
+				}
+				
+				document.getElementById('count_pacotes_del').value = Number(document.getElementById('count_pacotes_del').value) + 1;
+				
+				parent1.removeChild(del1);
+				parent2.removeChild(del2);
+				ajustarDiv('PP');
+			}
+			
+			function ajustarDiv(pp) {
+				count = document.getElementById('count_pacotes').value;
+				
+				count2 = 0;
+				for (i = 0; i < count; i++) {
+					if (document.getElementById(pp + i)) {
+						left = getPos(document.getElementById(pp + i), 'x') - (3 * count2);
+						if (document.getElementById('div-' + pp + i)) {
+							div = document.getElementById('div-' + pp + i);
+							div.style.left = left + 'px';
+						}
+						else {
+							div = document.createElement('div');
+							div.id = 'div-' + pp + i;
+							div.className = 'div-pacote';
+							div.style.left = left + 'px';
+							div.innerHTML = '&nbsp;';
+						}
+						document.getElementById('master-div').appendChild(div);
+						count2 = count2 + 1;
+					}
+				}
+			}
+			
+			function addAtivi(ppc, pac) {
+				document.getElementById('div-' + ppc).style.background = '#CCC';
+				ret = document.createElement('div');
+				ret.className = 'ret ret_2';
+				
+				if (document.getElementsByName('pacote_' + pac + '_atividade[]')) {
+					nr_ativ = document.getElementsByName('pacote_' + pac + '_atividade[]').length + 1;
+				}
+				else {
+					nr_ativ = 1;
+				}
+				
+				
+				ret.id = ppc + '_atv_' + nr_ativ;
+				
+				input = document.createElement('textarea');
+				input.className = 'input-eap';
+				input.name = 'pacote_' + pac + '_atividade[]';
+				input.value = 'Pacote ' + (Number(pac) + 1) + '\nAtividade ' + nr_ativ;
+				
+				appbtn = document.createElement('div');
+				appbtn.className = 'appButton';
+				
+				btn2 = document.createElement('button');
+				btn2.className = 'btnAdd';
+				btn2.innerHTML = 'x';
+				btn2.setAttribute('onclick', "delAtivi('" + ppc + '_atv_' + nr_ativ + "', " + nr_ativ + "); ");
+				
+				appbtn.appendChild(btn2);
+				
+				ret.appendChild(input);
+				ret.appendChild(appbtn);
+				
+				document.getElementById('div-' + ppc).appendChild(ret);
+				ajustarDiv('PP');
+			}
+			
+			function delAtivi(id, count) {
+				del1 = document.getElementById(id);
+				parent1 = del1.parentNode;
+				parent1.removeChild(del1);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="master-div">
+			<div class="level">
+				<div class="ret ret_1">
+					<div class="label-eap">PROJ</div>
+					<div class="appButton">
+						<button class="btnAdd" onclick="addPacote(); ajustarDiv('PP');">+</button>
+					</div>
+					<div id="lineBottom" class="lineBottom"></div>
+				</div>
+			</div>
+			<div id="lineHr" class="lineHr"></div>
+			<div class="level" id="pacotes">
+				<input type="hidden" id="count_pacotes" value="0">
+				<input type="hidden" id="count_pacotes_del" value="0">
+			</div>
+		</div>
+	</body>
+</html>

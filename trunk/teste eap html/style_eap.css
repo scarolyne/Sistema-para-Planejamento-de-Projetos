@@ -1,0 +1,108 @@
+.master-div {
+	box-sizing: border-box;
+	overflow: scroll;
+	width: 100%;
+}
+
+.pacotes {
+	overflow: scroll;
+	width: 100%;
+}
+
+.ret {
+	height: 40px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	margin: 0 auto;
+	padding: 5px;
+	width: 100px;
+	
+	background:linear-gradient(to top, #fff 1%, #EFEFEF 35%, #E0E0E0 40%, #fff 90%);
+	border: 1px solid #C1C1C1;
+	border-radius: 4px;
+	
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+}
+
+.ret_1 {
+	margin-right: 60px;
+	display: inline-block;
+}
+
+.ret_2 {
+	margin-top: 20px;
+}
+
+.level {
+	text-align: center;
+	height: 30px;
+	padding: 20px;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.div-pacote {
+	background: #FFF;
+	display: block;
+	float: left;
+	padding-left: 3px;
+	position: relative;
+	margin-top: -30px;
+	width: 0;
+	z-index: -1;
+}
+
+.appButton {
+	clear: both;
+	margin: 0 auto;
+}
+
+.btnAdd {
+	background: #DDD;
+}
+
+.input-eap {
+	background: transparent;
+	border: none;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	overflow: hidden;
+	resize: none;
+	width: 98px;
+}
+
+.label-eap {
+	background: transparent;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	width: 98px;
+	height: 35px;
+}
+
+.lineHr {
+	background: #CCC;
+	height: 3px;
+	margin: 0 auto;
+	margin-bottom: 2px;
+	width: 0;
+}
+
+.lineTop {
+	background: #CCC;
+	height: 25px;
+	margin: 0 auto;
+	margin-top: -30px;
+	width: 3px;
+	z-index: -1;
+}
+
+.lineBottom {
+	background: #FFF;
+	height: 25px;
+	margin: 0 auto;
+	margin-top: -5px;
+	width: 3px;
+	z-index: -1;
+}
