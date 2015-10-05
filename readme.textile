@@ -1,4 +1,5 @@
-# SiPP
+h1. SiPP
+
 <strong>Sistema para Planejamento de Projetos (System for Project Planning)</strong>
 
 <strong>Abstract</strong>
